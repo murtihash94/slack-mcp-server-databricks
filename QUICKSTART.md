@@ -46,8 +46,8 @@ git clone https://github.com/murtihash94/slack-mcp-server-databricks
 cd slack-mcp-server-databricks
 
 # Build the package
-pip install uv
-uv build --wheel
+pip install hatchling
+python -m hatchling build -t wheel
 
 # Deploy to Databricks
 databricks bundle deploy
