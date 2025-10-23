@@ -7,17 +7,26 @@ Get your Slack MCP Server running on Databricks Apps in 5 minutes!
 - Databricks workspace access
 - Databricks CLI installed
 - Slack workspace access
-- The provided xoxc token: `xoxc-9745578846547-9749919698358-9748524459781-cc6676cf0bddbda3a570e098823682c3c87e66ccab19804af65185c8456a0c34`
+
+> [!NOTE]
+> A `.env` file with pre-configured tokens is already included in the repository for your convenience:
+> - `SLACK_MCP_XOXC_TOKEN`: Pre-configured
+> - `SLACK_MCP_XOXD_TOKEN`: Pre-configured
+> 
+> You can use these tokens directly for testing, or replace them with your own tokens.
 
 ## Quick Steps
 
-### 1. Get Your Slack xoxd Token
+### 1. (Optional) Use Your Own Slack Tokens
+
+If you want to use your own tokens instead of the pre-configured ones:
 
 1. Open Slack in your browser at https://app.slack.com
 2. Press F12 to open Developer Tools
 3. Go to: Application → Cookies → https://app.slack.com
 4. Find cookie named `d` (not `d-s`)
 5. Copy its value (starts with `xoxd-`)
+6. Update the `.env` file with your tokens
 
 ### 2. Configure Databricks
 
@@ -44,13 +53,13 @@ uv build --wheel
 databricks bundle deploy
 ```
 
-### 4. Configure Environment Variables
+### 4. Configure Environment Variables in Databricks
 
-In Databricks UI:
+In Databricks UI, configure the environment variables using the tokens from the `.env` file:
 1. Go to Apps → slack-mcp-server-databricks
 2. Add environment variables:
    - `SLACK_MCP_XOXC_TOKEN`: `xoxc-9745578846547-9749919698358-9748524459781-cc6676cf0bddbda3a570e098823682c3c87e66ccab19804af65185c8456a0c34`
-   - `SLACK_MCP_XOXD_TOKEN`: Your token from Step 1
+   - `SLACK_MCP_XOXD_TOKEN`: `xoxd-PeFvxXXjFH0Q7YieBDxiePYueb%2FoLwit1Ddrh4Dhgd5ClDl9ZcHmPDiwryc12dSa3SNIXIvYNvrHBs3wwP1gLYhkxuL%2BcmOW%2Bamabd%2FnJ7Hfs51EsmDeLU3TgXWteurlnrP1TJXt7qn3N1JBnbmADgvMmkgq8J2Yo0ZMKCQW7C4WWGxbXQ33LwTIkYSAjnlwNJfyjdRUjTnnGqIRfFz2Ip%2FHh70A`
 3. Save and restart the app
 
 ### 5. Test Your Deployment

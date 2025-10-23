@@ -10,10 +10,17 @@ from io import StringIO
 from datetime import datetime, timedelta
 import re
 from urllib.parse import urlparse, parse_qs
+from pathlib import Path
 
+from dotenv import load_dotenv
 from mcp.server.fastmcp import FastMCP, Context
 from slack_sdk import WebClient
 from slack_sdk.errors import SlackApiError
+
+# Load environment variables from .env file
+env_path = Path(__file__).parent.parent.parent / '.env'
+if env_path.exists():
+    load_dotenv(env_path)
 
 
 @dataclass

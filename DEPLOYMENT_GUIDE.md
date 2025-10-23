@@ -12,22 +12,34 @@ Before you begin, ensure you have:
 4. **Slack Credentials**: Either OAuth token (xoxp) or browser tokens (xoxc + xoxd)
 5. **Python 3.10+**: For local testing
 
-## Step 1: Get Slack Credentials
+## Step 1: Slack Credentials (Already Configured!)
 
-### For the provided xoxc token:
+> [!NOTE]
+> **Great news!** The repository includes a `.env` file with pre-configured tokens:
+> - `SLACK_MCP_XOXC_TOKEN`: Already set
+> - `SLACK_MCP_XOXD_TOKEN`: Already set
+> 
+> You can use these tokens immediately for testing and deployment!
 
-The xoxc token is already configured in the deployment:
+### Using the Pre-configured Tokens
+
+The `.env` file in the repository contains:
 ```
-xoxc-9745578846547-9749919698358-9748524459781-cc6676cf0bddbda3a570e098823682c3c87e66ccab19804af65185c8456a0c34
+SLACK_MCP_XOXC_TOKEN="xoxc-9745578846547-9749919698358-9748524459781-cc6676cf0bddbda3a570e098823682c3c87e66ccab19804af65185c8456a0c34"
+SLACK_MCP_XOXD_TOKEN="xoxd-PeFvxXXjFH0Q7YieBDxiePYueb%2FoLwit1Ddrh4Dhgd5ClDl9ZcHmPDiwryc12dSa3SNIXIvYNvrHBs3wwP1gLYhkxuL%2BcmOW%2Bamabd%2FnJ7Hfs51EsmDeLU3TgXWteurlnrP1TJXt7qn3N1JBnbmADgvMmkgq8J2Yo0ZMKCQW7C4WWGxbXQ33LwTIkYSAjnlwNJfyjdRUjTnnGqIRfFz2Ip%2FHh70A"
 ```
 
-You still need to get the `xoxd` token from your Slack browser:
+### (Optional) Use Your Own Slack Tokens
+
+If you prefer to use your own tokens:
+
+**For browser tokens (xoxc + xoxd):**
 
 1. Open your Slack workspace in a web browser
 2. Open Developer Tools (F12)
 3. Go to Application/Storage → Cookies → https://app.slack.com
-4. Find the cookie named `d` (not `d-s`)
-5. Copy the value (starts with `xoxd-`)
+4. Find the cookie named `d` (not `d-s`) for xoxd token
+5. Copy the value and update the `.env` file
 
 ### Alternative: Get OAuth token (xoxp):
 
@@ -61,9 +73,7 @@ cd /path/to/slack-mcp-server-databricks
 # Install dependencies
 uv sync
 
-# Set environment variables
-export SLACK_MCP_XOXC_TOKEN="xoxc-9745578846547-9749919698358-9748524459781-cc6676cf0bddbda3a570e098823682c3c87e66ccab19804af65185c8456a0c34"
-export SLACK_MCP_XOXD_TOKEN="xoxd-YOUR-TOKEN-HERE"
+# The .env file is already configured with tokens, so you can run directly:
 
 # Test stdio mode (for Claude Desktop)
 uv run slack-mcp-server
@@ -71,6 +81,8 @@ uv run slack-mcp-server
 # Or test Databricks Apps mode (FastAPI)
 uv run slack-mcp-server-databricks
 ```
+
+**Note:** The Python application will automatically load environment variables from the `.env` file.
 
 Open your browser to `http://localhost:8000` to see the landing page.
 The MCP endpoint is at `http://localhost:8000/mcp/`
@@ -131,18 +143,18 @@ After deployment, you need to set the Slack credentials as environment variables
 2. Navigate to "Apps" in the left sidebar
 3. Find and click on `slack-mcp-server-databricks`
 4. Click "Settings" or "Environment Variables"
-5. Add the following variables:
+5. Add the following variables (from the `.env` file):
    - `SLACK_MCP_XOXC_TOKEN`: `xoxc-9745578846547-9749919698358-9748524459781-cc6676cf0bddbda3a570e098823682c3c87e66ccab19804af65185c8456a0c34`
-   - `SLACK_MCP_XOXD_TOKEN`: Your xoxd token from Step 1
+   - `SLACK_MCP_XOXD_TOKEN`: `xoxd-PeFvxXXjFH0Q7YieBDxiePYueb%2FoLwit1Ddrh4Dhgd5ClDl9ZcHmPDiwryc12dSa3SNIXIvYNvrHBs3wwP1gLYhkxuL%2BcmOW%2Bamabd%2FnJ7Hfs51EsmDeLU3TgXWteurlnrP1TJXt7qn3N1JBnbmADgvMmkgq8J2Yo0ZMKCQW7C4WWGxbXQ33LwTIkYSAjnlwNJfyjdRUjTnnGqIRfFz2Ip%2FHh70A`
 6. Save and restart the app
 
 ### Using Databricks CLI:
 
 ```bash
-# Set environment variables via CLI
+# Set environment variables via CLI (using tokens from .env file)
 databricks apps update slack-mcp-server-databricks \
   --env SLACK_MCP_XOXC_TOKEN="xoxc-9745578846547-9749919698358-9748524459781-cc6676cf0bddbda3a570e098823682c3c87e66ccab19804af65185c8456a0c34" \
-  --env SLACK_MCP_XOXD_TOKEN="xoxd-YOUR-TOKEN-HERE"
+  --env SLACK_MCP_XOXD_TOKEN="xoxd-PeFvxXXjFH0Q7YieBDxiePYueb%2FoLwit1Ddrh4Dhgd5ClDl9ZcHmPDiwryc12dSa3SNIXIvYNvrHBs3wwP1gLYhkxuL%2BcmOW%2Bamabd%2FnJ7Hfs51EsmDeLU3TgXWteurlnrP1TJXt7qn3N1JBnbmADgvMmkgq8J2Yo0ZMKCQW7C4WWGxbXQ33LwTIkYSAjnlwNJfyjdRUjTnnGqIRfFz2Ip%2FHh70A"
 ```
 
 ## Step 7: Access Your Deployed App
