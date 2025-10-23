@@ -13,10 +13,10 @@ This document summarizes the conversion of the Go-based Slack MCP Server to a Py
 - Direct compilation to binary
 
 **After (Python):**
-- Python package using `uv` for dependency management
+- Python package using `pip` for dependency management
 - Uses FastMCP from `mcp` Python library
 - FastAPI wrapper for Databricks Apps HTTP transport
-- Wheel distribution via hatchling
+- Wheel distribution via hatchling build system
 
 ### Project Structure
 
@@ -103,7 +103,7 @@ All features from the Go implementation have been converted to Python:
 ### 4. Deployment
 
 **Go:** Binary distribution via npm packages and GitHub releases
-**Python:** Wheel package deployment via uv and Databricks bundles
+**Python:** Wheel package deployment via pip/hatchling and Databricks bundles
 
 ## Dependencies
 
@@ -176,7 +176,7 @@ Users only need to provide their `SLACK_MCP_XOXD_TOKEN` from browser cookies.
 The Python implementation follows the exact template from duckduckgo-mcp:
 
 1. **Project Structure**: Matches duckduckgo-mcp layout
-2. **Build System**: Uses uv + hatchling + hooks/apps_build.py
+2. **Build System**: Uses hatchling + hooks/apps_build.py
 3. **FastAPI Integration**: Same pattern for HTTP transport
 4. **Landing Page**: Similar static/index.html design
 5. **Bundle Config**: Same databricks.yml format
@@ -193,7 +193,7 @@ Both implementations have been tested:
 
 ### Python Implementation Tests
 - ✅ Import validation
-- ✅ Build verification (uv build)
+- ✅ Build verification (python -m hatchling build)
 - ✅ CodeQL security scan (0 issues)
 - ✅ Dependency resolution
 - ✅ Package structure
