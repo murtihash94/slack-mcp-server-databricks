@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slack MCP Server</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 800px;
+            width: 100%;
+            padding: 60px 40px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+        }
+
+        .status {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: #10b981;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-weight: 600;
+            margin-bottom: 40px;
+        }
+
+        .status::before {
+            content: '';
+            width: 12px;
+            height: 12px;
+            background: white;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.5;
+            }
+        }
+
+        .features {
+            text-align: left;
+            margin: 40px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .features h2 {
+            color: #333;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        .features ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .features li {
+            padding: 10px 0;
+            color: #555;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .features li::before {
+            content: '✓';
+            color: #10b981;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .info {
+            background: #e0e7ff;
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            border-radius: 5px;
+            margin-top: 30px;
+            text-align: left;
+        }
+
+        .info h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .info p {
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .info code {
+            background: white;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #667eea;
+        }
+
+        .footer {
+            margin-top: 40px;
+            color: #999;
+            font-size: 0.9rem;
+        }
+
+        .footer a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Slack MCP Server</h1>
+        <p class="subtitle">Model Context Protocol Server for Slack on Databricks Apps</p>
+        
+        <div class="status">
+            Server is running
+        </div>
+
+        <div class="features">
+            <h2>Available Tools</h2>
+            <ul>
+                <li>conversations_history - Get messages from channels and DMs</li>
+                <li>conversations_replies - Get thread messages</li>
+                <li>conversations_add_message - Post messages to channels</li>
+                <li>conversations_search_messages - Search messages with filters</li>
+                <li>channels_list - List all channels</li>
+            </ul>
+        </div>
+
+        <div class="features">
+            <h2>Available Resources</h2>
+            <ul>
+                <li>slack://workspace/channels - Directory of all channels</li>
+                <li>slack://workspace/users - Directory of all users</li>
+            </ul>
+        </div>
+
+        <div class="info">
+            <h3>MCP Endpoint</h3>
+            <p>
+                The MCP server is available at <code>/mcp/</code> endpoint.
+                Use this URL with your MCP client to connect to the Slack MCP server.
+            </p>
+        </div>
+
+        <div class="info">
+            <h3>Authentication</h3>
+            <p>
+                Make sure to set the following environment variables:
+            </p>
+            <ul style="margin-top: 10px;">
+                <li><code>SLACK_MCP_XOXC_TOKEN</code> - Your Slack xoxc token</li>
+                <li><code>SLACK_MCP_XOXD_TOKEN</code> - Your Slack xoxd token</li>
+            </ul>
+            <p style="margin-top: 10px;">
+                Or alternatively use:
+            </p>
+            <ul style="margin-top: 10px;">
+                <li><code>SLACK_MCP_XOXP_TOKEN</code> - Your Slack OAuth token</li>
+            </ul>
+        </div>
+
+        <div class="footer">
+            <p>
+                Powered by <a href="https://modelcontextprotocol.io" target="_blank">Model Context Protocol</a> |
+                <a href="https://github.com/murtihash94/slack-mcp-server-databricks" target="_blank">View on GitHub</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>
