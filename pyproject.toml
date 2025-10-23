@@ -35,6 +35,12 @@ slack-mcp-server-databricks = "slack_mcp_server.main:main"
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
+[tool.hatch.build]
+sources = ["src"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/slack_mcp_server"]
+
 [dependency-groups]
 dev = [
     "hatchling>=1.27.0",
