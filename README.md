@@ -3,6 +3,15 @@
 
 Model Context Protocol (MCP) server for Slack Workspaces. The most powerful MCP Slack server — supports Stdio, SSE and HTTP transports, proxy settings, DMs, Group DMs, Smart History fetch (by date or count), may work via OAuth or in complete stealth mode with no permissions and scopes in Workspace 😏.
 
+> [!NOTE]
+> **🚀 Now with Databricks Apps Support!** 
+> This repository has been converted to support deployment on Databricks Apps using Python and `uv`. 
+> 
+> - **[Databricks Deployment Guide →](DEPLOYMENT_GUIDE.md)** - Step-by-step instructions for deploying to Databricks Apps
+> - **[Databricks README →](DATABRICKS_README.md)** - Complete documentation for the Python implementation
+> 
+> The original Go-based server is still available in this repository for other deployment methods.
+
 > [!IMPORTANT]  
 > We need your support! Each month, over 30,000 engineers visit this repository, and more than 9,000 are already using it.
 > 

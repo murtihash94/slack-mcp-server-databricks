@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Token Configuration - Slack MCP Server</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 700px;
+            width: 100%;
+            padding: 40px;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 2rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 1rem;
+            margin-bottom: 30px;
+        }
+
+        .back-link {
+            display: inline-block;
+            color: #667eea;
+            text-decoration: none;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        .alert {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+        }
+
+        .alert-success {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+
+        .alert-info {
+            background: #d1ecf1;
+            border: 1px solid #bee5eb;
+            color: #0c5460;
+        }
+
+        .current-status {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        .current-status h3 {
+            color: #333;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+        }
+
+        .token-status {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            font-family: monospace;
+            font-size: 0.9rem;
+        }
+
+        .token-status .label {
+            font-weight: 600;
+            width: 150px;
+            color: #555;
+        }
+
+        .token-status .value {
+            color: #333;
+            flex: 1;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+
+        .status-badge.set {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-badge.not-set {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            color: #333;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-family: monospace;
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .help-text {
+            font-size: 0.85rem;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 30px;
+        }
+
+        button {
+            flex: 1;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        button[type="submit"] {
+            background: #667eea;
+            color: white;
+        }
+
+        button[type="submit"]:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+
+        button[type="button"] {
+            background: #e0e0e0;
+            color: #333;
+        }
+
+        button[type="button"]:hover {
+            background: #d0d0d0;
+        }
+
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeeba;
+            color: #856404;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+        }
+
+        .warning strong {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .instructions {
+            background: #e7f3ff;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            color: #004085;
+        }
+
+        .instructions h4 {
+            margin-bottom: 10px;
+            color: #004085;
+        }
+
+        .instructions ol {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+
+        .instructions li {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="/" class="back-link">← Back to Home</a>
+        
+        <h1>🔑 Token Configuration</h1>
+        <p class="subtitle">Update your Slack authentication tokens</p>
+
+        <div id="success-alert" class="alert alert-success" style="display: none;">
+            ✅ Tokens updated successfully! The server will use the new tokens immediately.
+        </div>
+
+        <div class="current-status">
+            <h3>Current Token Status</h3>
+            <div id="current-tokens">
+                <div class="token-status">
+                    <span class="label">XOXC Token:</span>
+                    <span class="value" id="xoxc-display">Loading...</span>
+                </div>
+                <div class="token-status">
+                    <span class="label">XOXD Token:</span>
+                    <span class="value" id="xoxd-display">Loading...</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="warning">
+            <strong>⚠️ Important:</strong>
+            Updating tokens will immediately affect all active connections. Make sure you have valid tokens before submitting.
+        </div>
+
+        <div class="instructions">
+            <h4>How to get your tokens:</h4>
+            <ol>
+                <li>Open Slack in your web browser at <code>https://app.slack.com</code></li>
+                <li>Press <kbd>F12</kbd> to open Developer Tools</li>
+                <li>Go to: <strong>Application</strong> → <strong>Cookies</strong> → <code>https://app.slack.com</code></li>
+                <li>Find cookie named <code>d</code> (not <code>d-s</code>) - this is your <strong>xoxd</strong> token</li>
+                <li>For the <strong>xoxc</strong> token, check the network requests for authorization headers</li>
+            </ol>
+        </div>
+
+        <form id="token-form" method="POST" action="/api/update-tokens">
+            <div class="form-group">
+                <label for="xoxc_token">
+                    XOXC Token
+                    <span style="color: #dc3545;">*</span>
+                </label>
+                <input 
+                    type="text" 
+                    id="xoxc_token" 
+                    name="xoxc_token" 
+                    placeholder="xoxc-..." 
+                    required
+                    pattern="xoxc-.*"
+                />
+                <div class="help-text">Slack browser cookie token (starts with xoxc-)</div>
+            </div>
+
+            <div class="form-group">
+                <label for="xoxd_token">
+                    XOXD Token
+                    <span style="color: #dc3545;">*</span>
+                </label>
+                <input 
+                    type="text" 
+                    id="xoxd_token" 
+                    name="xoxd_token" 
+                    placeholder="xoxd-..." 
+                    required
+                    pattern="xoxd-.*"
+                />
+                <div class="help-text">Slack browser d cookie value (starts with xoxd-)</div>
+            </div>
+
+            <div class="button-group">
+                <button type="button" onclick="window.location.href='/'">Cancel</button>
+                <button type="submit">Update Tokens</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // Load current token status
+        async function loadCurrentTokens() {
+            try {
+                const response = await fetch('/api/current-tokens');
+                const data = await response.json();
+                
+                const xoxcEl = document.getElementById('xoxc-display');
+                const xoxdEl = document.getElementById('xoxd-display');
+                
+                xoxcEl.innerHTML = data.xoxc_token + 
+                    `<span class="status-badge ${data.xoxc_set ? 'set' : 'not-set'}">${data.xoxc_set ? 'Set' : 'Not Set'}</span>`;
+                xoxdEl.innerHTML = data.xoxd_token + 
+                    `<span class="status-badge ${data.xoxd_set ? 'set' : 'not-set'}">${data.xoxd_set ? 'Set' : 'Not Set'}</span>`;
+            } catch (error) {
+                console.error('Failed to load current tokens:', error);
+            }
+        }
+
+        // Check for success parameter in URL
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('success') === 'true') {
+            document.getElementById('success-alert').style.display = 'block';
+            // Remove success parameter from URL without reload
+            window.history.replaceState({}, document.title, '/config');
+        }
+
+        // Load current tokens on page load
+        loadCurrentTokens();
+    </script>
+</body>
+</html>
