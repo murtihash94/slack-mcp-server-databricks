@@ -5,7 +5,7 @@ Model Context Protocol (MCP) server for Slack Workspaces. The most powerful MCP 
 
 > [!NOTE]
 > **🚀 Now with Databricks Apps Support!** 
-> This repository has been converted to support deployment on Databricks Apps using Python and `uv`. 
+> This repository has been converted to support deployment on Databricks Apps using Python. 
 > 
 > - **[Databricks Deployment Guide →](DEPLOYMENT_GUIDE.md)** - Step-by-step instructions for deploying to Databricks Apps
 > - **[Databricks README →](DATABRICKS_README.md)** - Complete documentation for the Python implementation
