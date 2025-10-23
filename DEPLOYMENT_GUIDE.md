@@ -8,9 +8,8 @@ Before you begin, ensure you have:
 
 1. **Databricks Workspace**: Access to a Databricks workspace with permissions to create apps
 2. **Databricks CLI**: Installed and configured ([installation guide](https://docs.databricks.com/dev-tools/cli/index.html))
-3. **uv Package Manager**: Installed ([installation guide](https://github.com/astral-sh/uv))
+3. **Python 3.10+**: With pip package manager (for local testing)
 4. **Slack Credentials**: Either OAuth token (xoxp) or browser tokens (xoxc + xoxd)
-5. **Python 3.10+**: For local testing
 
 ## Step 1: Slack Credentials (Already Configured!)
 
@@ -71,15 +70,17 @@ Test the server locally before deploying:
 cd /path/to/slack-mcp-server-databricks
 
 # Install dependencies
-uv sync
+pip install -e .
 
 # The .env file is already configured with tokens, so you can run directly:
 
 # Test stdio mode (for Claude Desktop)
-uv run slack-mcp-server
+slack-mcp-server
 
 # Or test Databricks Apps mode (FastAPI)
-uv run slack-mcp-server-databricks
+slack-mcp-server-databricks
+# Or alternatively:
+python -m slack_mcp_server.main
 ```
 
 **Note:** The Python application will automatically load environment variables from the `.env` file.
@@ -91,7 +92,8 @@ The MCP endpoint is at `http://localhost:8000/mcp/`
 
 ```bash
 # Build the Python wheel
-uv build --wheel
+python -m pip install hatchling
+python -m hatchling build -t wheel
 ```
 
 This creates:
@@ -257,7 +259,8 @@ To update after making changes:
 
 ```bash
 # Make your changes, then rebuild
-uv build --wheel
+python -m pip install hatchling
+python -m hatchling build -t wheel
 
 # Redeploy
 databricks bundle deploy
@@ -289,7 +292,7 @@ databricks apps deploy slack-mcp-server-databricks \
 
 ### Import errors
 
-1. Rebuild with `uv build --wheel`
+1. Rebuild with `python -m hatchling build -t wheel`
 2. Check that all dependencies are in pyproject.toml
 3. Verify the .build directory was created correctly
 

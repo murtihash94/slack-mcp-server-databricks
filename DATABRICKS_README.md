@@ -80,7 +80,7 @@ CSV directory of all users with ID, username, and real name.
 ### Prerequisites
 
 - Python 3.10 or higher
-- `uv` package manager ([installation instructions](https://github.com/astral-sh/uv))
+- Python `pip` package manager (usually included with Python)
 - Databricks CLI (for Databricks deployment)
 - Slack workspace access
 
@@ -107,7 +107,7 @@ For this deployment, the xoxc token is already configured as shown above.
 
 1. **Install dependencies:**
 ```bash
-uv sync
+pip install -e .
 ```
 
 2. **Set environment variables:**
@@ -119,10 +119,12 @@ export SLACK_MCP_XOXD_TOKEN="xoxd-your-d-token"  # Get this from your Slack brow
 3. **Run the server:**
 ```bash
 # For stdio mode (Claude Desktop)
-uv run slack-mcp-server
+slack-mcp-server
 
 # For Databricks Apps mode with FastAPI
-uv run slack-mcp-server-databricks
+slack-mcp-server-databricks
+# Or alternatively:
+python -m slack_mcp_server.main
 ```
 
 The server will start at `http://localhost:8000` with:
@@ -159,7 +161,8 @@ databricks auth login --profile "$DATABRICKS_CONFIG_PROFILE"
 
 ```bash
 # Build the Python wheel package
-uv build --wheel
+python -m pip install hatchling
+python -m hatchling build -t wheel
 ```
 
 This creates a `.whl` file in the `dist/` directory and a `.build/` directory with the deployment artifacts.
@@ -287,7 +290,7 @@ mcp dev src/slack_mcp_server/server.py
 uvicorn slack_mcp_server.app:app --reload
 
 # Test specific tool
-uv run python -c "
+python -c "
 from slack_mcp_server.server import slack_server
 import asyncio
 
@@ -322,8 +325,8 @@ If deployment fails:
 
 ### Build Errors
 
-If `uv build` fails:
-1. Ensure `uv` is up to date: `pip install --upgrade uv`
+If the build fails:
+1. Ensure `hatchling` is installed: `pip install hatchling`
 2. Check Python version: Should be 3.10+
 3. Clear cache: `rm -rf .build dist`
 
