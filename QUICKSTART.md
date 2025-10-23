@@ -55,8 +55,16 @@ databricks bundle deploy
 
 ### 4. Configure Environment Variables in Databricks
 
-In Databricks UI, configure the environment variables using the tokens from the `.env` file:
-1. Go to Apps → slack-mcp-server-databricks
+You have two options to configure tokens:
+
+**Option A: Using the Web UI (Recommended)**
+1. Visit your app URL: `https://<workspace>.cloud.databricks.com/apps/<app-id>/`
+2. Click the "🔑 Configure Tokens" button
+3. Enter your tokens and submit
+4. Tokens are automatically saved and the server reloads
+
+**Option B: Using Databricks Environment Variables**
+1. Go to Apps → slack-mcp-server-databricks in Databricks UI
 2. Add environment variables:
    - `SLACK_MCP_XOXC_TOKEN`: `xoxc-9745578846547-9749919698358-9748524459781-cc6676cf0bddbda3a570e098823682c3c87e66ccab19804af65185c8456a0c34`
    - `SLACK_MCP_XOXD_TOKEN`: `xoxd-PeFvxXXjFH0Q7YieBDxiePYueb%2FoLwit1Ddrh4Dhgd5ClDl9ZcHmPDiwryc12dSa3SNIXIvYNvrHBs3wwP1gLYhkxuL%2BcmOW%2Bamabd%2FnJ7Hfs51EsmDeLU3TgXWteurlnrP1TJXt7qn3N1JBnbmADgvMmkgq8J2Yo0ZMKCQW7C4WWGxbXQ33LwTIkYSAjnlwNJfyjdRUjTnnGqIRfFz2Ip%2FHh70A`
@@ -67,6 +75,14 @@ In Databricks UI, configure the environment variables using the tokens from the 
 Visit your app URL: `https://<workspace>.cloud.databricks.com/apps/<app-id>/`
 
 You should see the landing page with "Server is running" status!
+
+## Token Management
+
+**Update tokens anytime** via the web interface:
+- Navigate to `/config` on your deployed app
+- View current token status (masked for security)
+- Enter new tokens and submit
+- Changes take effect immediately without redeploying!
 
 ## MCP Endpoint
 

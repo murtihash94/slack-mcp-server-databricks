@@ -10,6 +10,7 @@ A Model Context Protocol (MCP) server for Slack, deployable on Databricks Apps. 
 - **Channel Management**: List and browse all workspace channels
 - **User Directory**: Access workspace user information
 - **Message Posting**: Send messages to channels (configurable)
+- **Token Management UI**: Update Slack tokens directly from the web interface
 - **Databricks Apps Ready**: Fully compatible with Databricks Apps deployment
 
 ## Tools
@@ -126,7 +127,19 @@ uv run slack-mcp-server-databricks
 
 The server will start at `http://localhost:8000` with:
 - Landing page at `/`
+- Token configuration UI at `/config`
 - MCP endpoint at `/mcp/`
+
+### Token Management UI
+
+The server includes a built-in web interface for managing Slack tokens:
+
+1. **Access the UI**: Navigate to `http://localhost:8000/config` (or `/config` on your deployed app)
+2. **View Current Status**: See which tokens are currently configured (tokens are masked for security)
+3. **Update Tokens**: Enter new xoxc and xoxd tokens and submit
+4. **Automatic Reload**: The server automatically updates the `.env` file and reloads configuration
+
+This is especially useful in Databricks Apps where you can update tokens without redeploying the application or accessing environment variable settings.
 
 ### Deploying to Databricks Apps
 
