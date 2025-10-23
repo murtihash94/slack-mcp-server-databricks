@@ -9,7 +9,7 @@ artifacts:
   default:
     type: whl
     path: .
-    build: python -m pip install hatchling && python -m hatchling build -t wheel
+    build: uv build --wheel
 
 resources:
   apps:
