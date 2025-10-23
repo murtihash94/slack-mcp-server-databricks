@@ -9,7 +9,7 @@ artifacts:
   default:
     type: whl
     path: .
-    build: uv build --wheel
+    build: python -m hatchling build -t wheel
 
 resources:
   apps:

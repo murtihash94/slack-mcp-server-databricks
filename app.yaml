@@ -1,1 +1,1 @@
-command: ["uv", "run", "slack-mcp-server-databricks"]
+command: ["slack-mcp-server-databricks"]
